@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peluchilandia | Mayoreo de Peluches y Llaveros Adorables</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fdfbf7;
+        }
+    </style>
+</head>
+<body class="text-neutral-700 antialiased selection:bg-red-200 selection:text-red-900">
+
+    <!-- BARRA DE ANUNCIO SUPERIOR -->
+    <div class="bg-red-600 text-white text-xs sm:text-sm font-medium py-2 px-4 text-center tracking-wide">
+        📦 ¡MAYOREO PELUCHELANDIA! • Ventas directas y surtido para tu negocio 💖
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-red-100 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-xl font-bold shadow-inner">
+                    🧸
+                </div>
+                <div>
+                    <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">PELUCHELANDIA</span>
+                    <span class="block text-[10px] uppercase tracking-widest text-red-500 font-semibold">Mayoreo</span>
+                </div>
+            </div>
+
+            <!-- Buscador central -->
+            <div class="hidden md:flex flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="searchInput" placeholder="Busca por nombre o ref (ej. 384, Sonic, Stitch, Shrek)..." class="w-full bg-red-50/50 border border-red-200 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-300 focus:bg-white transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-red-400"></i>
+                </div>
+            </div>
+
+            <!-- Botones de Acción (Carrito y Favoritos) -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleWishlistModal()" class="relative p-2.5 rounded-full hover:bg-red-50 text-red-500 transition-colors cursor-pointer" title="Favoritos">
+                    <i class="fa-regular fa-heart text-xl"></i>
+                    <span id="wishlistBadge" class="absolute top-1 right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                </button>
+                
+                <button onclick="toggleCartDrawer()" class="relative flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-full shadow-md shadow-red-200 transition-all cursor-pointer">
+                    <i class="fa-solid fa-bag-shopping text-base"></i>
+                    <span class="text-sm font-semibold hidden sm:inline">Carrito</span>
+                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-neutral-900 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-white shadow-xs">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Buscador móvil -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <input type="text" id="searchMobileInput" placeholder="Busca por nombre o ref..." class="w-full bg-red-50/50 border border-red-200 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-red-300 focus:bg-white">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-2.5 text-red-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-red-50/80 to-transparent py-12 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="max-w-xl text-center lg:text-left">
+                <span class="inline-block bg-red-100 text-red-600 text-xs uppercase tracking-wider font-bold px-3 py-1 rounded-full mb-4">Catálogo de Mayoreo 📦</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-800 leading-tight mb-6">
+                    Peluches y llaveros al <span class="bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">mejor precio</span>
+                </h1>
+                <p class="text-base sm:text-lg text-neutral-600 mb-8">
+                    Consulta referencias, precios de mayoreo y surte tu negocio con los mejores personajes.
+                </p>
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                    <a href="#catalogo" class="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-red-200 transition-all">
+                        Ver Catálogo Completo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="w-72 h-72 sm:w-96 sm:h-96 bg-gradient-to-tr from-red-200 to-pink-200 rounded-full absolute -top-6 -left-6 filter blur-2xl opacity-70 animate-pulse"></div>
+                <div class="relative bg-white p-4 rounded-3xl shadow-xl border border-red-100 max-w-xs sm:max-w-sm">
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" alt="Destacado" class="w-full h-64 sm:h-80 object-cover rounded-2xl mb-4">
+                    <div class="flex justify-between items-center px-2">
+                        <div>
+                            <h3 class="font-bold text-neutral-800">REMATE AJOLOTES</h3>
+                            <p class="text-red-600 font-bold">$16.00 MXN</p>
+                        </div>
+                        <button onclick="agregarDestacadoRapido()" class="bg-red-100 hover:bg-red-600 hover:text-white text-red-600 p-3 rounded-full transition-all cursor-pointer">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-neutral-800">Catálogo Peluchilandia 🧸✨</h2>
+                <p class="text-neutral-500 text-sm sm:text-base">Alterna entre vista normal o precios de mayoreo especiales.</p>
+            </div>
+
+            <!-- Botones de Filtro: Todos y Mayoreo -->
+            <div id="categoryFilters" class="flex flex-wrap gap-2">
+                <button onclick="filtrarVista('todos')" class="cat-btn bg-red-600 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer shadow-sm">Todos</button>
+                <button onclick="filtrarVista('mayoreo')" class="cat-btn bg-white hover:bg-red-50 text-neutral-600 border border-red-200 px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer">Mayoreo</button>
+            </div>
+        </div>
+
+        <!-- Grid de Productos -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Inyectado dinámicamente -->
+        </div>
+
+        <!-- Estado vacío si no hay resultados -->
+        <div id="noResults" class="hidden text-center py-16">
+            <div class="text-5xl mb-3">😿</div>
+            <h3 class="text-lg font-bold text-neutral-700">No encontramos ningún artículo</h3>
+            <p class="text-neutral-400 text-sm mt-1">Intenta buscar por nombre o número de referencia.</p>
+        </div>
+    </main>
+
+    <!-- SLIDE-OVER DEL CARRITO DE COMPRAS -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/40 backdrop-blur-xs transition-opacity opacity-0"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cartPanel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+                
+                <div class="p-6 border-b border-red-100 flex items-center justify-between bg-red-50/50">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-red-600 text-xl"></i>
+                        <h2 class="text-lg font-bold text-neutral-800">Tu Carrito Peluchilandia</h2>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-neutral-400 hover:text-neutral-600 p-2 rounded-full hover:bg-red-100 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 divide-y divide-red-50"></div>
+
+                <div id="cartFooter" class="p-6 border-t border-red-100 bg-red-50/30">
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm text-neutral-500">
+                            <span>Subtotal</span>
+                            <span id="cartSubtotal">$0.00 MXN</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-neutral-500">
+                            <span>Envío</span>
+                            <span id="cartShipping" class="text-red-600 font-semibold">A coordinar</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold text-neutral-800 pt-2 border-t border-red-200">
+                            <span>Total</span>
+                            <span id="cartTotal" class="text-red-600">$0.00 MXN</span>
+                        </div>
+                    </div>
+                    <button onclick="abrirCheckout()" id="checkoutBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-2xl shadow-md shadow-red-200 transition-all cursor-pointer flex items-center justify-center gap-2">
+                        <span>Proceder al Pago</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CHECKOUT -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-xs" onclick="cerrarCheckout()"></div>
+        <div class="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-8 z-10 border border-red-100 transform scale-95 transition-transform" id="checkoutModalContent">
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center text-red-600 text-2xl mx-auto mb-3 shadow-inner">
+                    🎁
+                </div>
+                <h3 class="text-xl font-extrabold text-neutral-800">¡Finalizar Pedido de Mayoreo!</h3>
+                <p class="text-sm text-neutral-500">Ingresa tus datos para procesar tu orden en Peluchilandia.</p>
+            </div>
+
+            <form id="checkoutForm" onsubmit="finalizarCompra(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-neutral-600 mb-1">Nombre Completo</label>
+                    <input type="text" required placeholder="Ej. Mendoza Guzmán Alisson Danahe" class="w-full bg-red-50/50 border border-red-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-neutral-600 mb-1">Teléfono / WhatsApp</label>
+                        <input type="tel" required placeholder="5610457708" class="w-full bg-red-50/50 border border-red-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-neutral-600 mb-1">Método de Pago</label>
+                        <select class="w-full bg-red-50/50 border border-red-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300">
+                            <option>Transferencia SPEI</option>
+                            <option>Depósito Bancario</option>
+                            <option>Efectivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-neutral-600 mb-1">Dirección de Envío</label>
+                    <textarea required rows="2" placeholder="Gustavo A. Madero, Ciudad de México..." class="w-full bg-red-50/50 border border-red-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-300"></textarea>
+                </div>
+
+                <div class="pt-4 flex gap-3">
+                    <button type="button" onclick="cerrarCheckout()" class="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 font-bold py-3 rounded-xl transition-all cursor-pointer">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl shadow-md shadow-red-200 transition-all cursor-pointer">
+                        Confirmar Pedido 🛍️
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-white border-t border-red-100 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div class="flex items-center gap-3 justify-center md:justify-start">
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">🧸</div>
+                <div>
+                    <span class="font-bold text-neutral-800">MAYOREO PELUCHELANDIA</span>
+                    <p class="text-xs text-neutral-400">Contacto: gerarrrr1998@gmail.com | WhatsApp: 5610457708</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-red-500 text-lg">
+                <a href="#" class="hover:text-red-700 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-red-700 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT CON TODOS LOS PRODUCTOS -->
+    <script>
+        const productos = [
+            { id: 1, nombre: "31 MINUTOS PREMIUM", ref: "433", precio: 38.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 2, nombre: "AMÉRICA", ref: "441", precio: 38.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 3, nombre: "ANIMALES SURTIDO", ref: "94", precio: 15.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 4, nombre: "ANIMALES SURTIDOS GRAN", ref: "237", precio: 28.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 5, nombre: "ANIMALITOS 2", ref: "84", precio: 15.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 6, nombre: "ANIMALITOS MIT", ref: "12", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 7, nombre: "ARTHUR", ref: "406", precio: 38.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 8, nombre: "AUDÍFONO CON CAJA", ref: "385", precio: 18.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 9, nombre: "AUDÍFONO DE BOLSA", ref: "387", precio: 12.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 10, nombre: "BABY YODA", ref: "436", precio: 28.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 11, nombre: "baby Yoda nuevo", ref: "330", precio: 26.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 12, nombre: "BALONES", ref: "307", precio: 25.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 13, nombre: "BASE TANK MAN", ref: "327", precio: 800.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 14, nombre: "BEZUCONES CON LENTES", ref: "236", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 15, nombre: "BLANCA NIEVES", ref: "437", precio: 38.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 16, nombre: "BOLITA BEZUCONES", ref: "85", precio: 15.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 17, nombre: "BOLITA CON MOÑO 12pz", ref: "157", precio: 15.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 18, nombre: "BOO", ref: "440", precio: 38.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 19, nombre: "BRAZALETE DE ABEJA CON MOVIMIENTO", ref: "250", precio: 27.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 20, nombre: "BRUJA", ref: "404", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 21, nombre: "BTS", ref: "31", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 22, nombre: "CARS", ref: "397", precio: 30.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 23, nombre: "CARTAS DRAGÓN BALL 24 CARTAS", ref: "291", precio: 15.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 24, nombre: "CERDITO", ref: "178", precio: 30.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 25, nombre: "CHAVO DEL OCHO", ref: "324", precio: 36.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 26, nombre: "CHICAS SÚPER PODEROSAS", ref: "133", precio: 31.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 27, nombre: "COCO", ref: "379", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 28, nombre: "CONEJITOS SURTIDOS", ref: "263", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 29, nombre: "CORAZÓN COLORES", ref: "438", precio: 17.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 30, nombre: "CORAZÓN CON ALAS 12pz", ref: "103", precio: 15.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 31, nombre: "COSTAL CRUZ AZUL", ref: "273", precio: 31.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 32, nombre: "DOMPLIN", ref: "309", precio: 20.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 33, nombre: "DONAS", ref: "44", precio: 15.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 34, nombre: "DRON", ref: "410", precio: 350.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 35, nombre: "EL CHAVO DEL 8 (2)", ref: "405", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 36, nombre: "EL CHAVO DEL 8 (3)", ref: "402", precio: 38.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 37, nombre: "ESTRELLAS", ref: "89", precio: 15.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 38, nombre: "FANTASMAS", ref: "68", precio: 15.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 39, nombre: "FIGURAS DE TRALALERO 24pz", ref: "114", precio: 320.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 40, nombre: "GALLETAS", ref: "393", precio: 15.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 41, nombre: "GATITO G", ref: "288", precio: 32.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 42, nombre: "GATO", ref: "25", precio: 15.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 43, nombre: "GATO COLORES", ref: "234", precio: 15.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 44, nombre: "GATOS", ref: "22", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 45, nombre: "GATOS (2)", ref: "181", precio: 30.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 46, nombre: "GRU PREMIUM", ref: "430", precio: 38.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 47, nombre: "HAMBURGUESA Y PAPAS", ref: "100", precio: 20.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 48, nombre: "HARRY POTER remate", ref: "145", precio: 20.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 49, nombre: "HONGO DE MARIO REMATE", ref: "413", precio: 23.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 50, nombre: "JACK", ref: "382", precio: 38.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 51, nombre: "KITTY", ref: "162", precio: 30.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 52, nombre: "KITTY PEQ 9-10cm", ref: "418", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 53, nombre: "KOALA", ref: "63", precio: 15.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 54, nombre: "LABUBU DRAGÓN", ref: "275", precio: 17.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 55, nombre: "LABUBU FRUTA", ref: "421", precio: 17.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 56, nombre: "LABUBU MONEDERO", ref: "422", precio: 17.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 57, nombre: "LAS CHICAS SUPER CON IMPERDIBLE", ref: "403", precio: 38.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 58, nombre: "LONEY", ref: "331", precio: 23.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 59, nombre: "LOS INCREÍBLES", ref: "383", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 60, nombre: "LOS PICAPIEDRA PREMIUM", ref: "432", precio: 38.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 61, nombre: "LOTSO G", ref: "287", precio: 35.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 62, nombre: "M&M LLAVEROS", ref: "399", precio: 17.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 63, nombre: "MARIO MEDIANO", ref: "396", precio: 32.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 64, nombre: "MASHA Y EL OSO", ref: "416", precio: 38.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 65, nombre: "MICKEY IMPERMEABLE", ref: "442", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 66, nombre: "MINI BOCINA DE HONGO", ref: "386", precio: 40.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 67, nombre: "MINI FUNKOS", ref: "289", precio: 23.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 68, nombre: "MINIONS", ref: "394", precio: 30.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 69, nombre: "MONCHHICHI", ref: "211", precio: 25.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 70, nombre: "MONEDERO MARIO", ref: "417", precio: 23.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 71, nombre: "MONSTER HIGT", ref: "310", precio: 34.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 72, nombre: "MORTY PREMIOS", ref: "431", precio: 38.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 73, nombre: "MUÑECO DE STICH", ref: "204", precio: 34.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 74, nombre: "MYERS", ref: "400", precio: 38.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 75, nombre: "NÚMERO GANADOR", ref: "360", precio: 10000.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 76, nombre: "ONE PIECE", ref: "311", precio: 23.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 77, nombre: "PANTERA ROSA MEDIANO", ref: "435", precio: 30.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 78, nombre: "PAQUETE 100pz", ref: "398", precio: 1600.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 79, nombre: "PAQUETE 100pz chicos", ref: "376", precio: 1000.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 80, nombre: "PAQUETE PREMIUM", ref: "346", precio: 3100.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 81, nombre: "PAQUETE remate 100pz", ref: "419", precio: 2200.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 82, nombre: "PERRITO", ref: "257", precio: 25.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 83, nombre: "perrito disfrazado", ref: "415", precio: 23.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 84, nombre: "PHINEAS Y FERB", ref: "392", precio: 38.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 85, nombre: "PLIM PLIM", ref: "343", precio: 35.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 86, nombre: "POKEMON SURTIDO", ref: "221", precio: 32.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 87, nombre: "PRINCESAS", ref: "444", precio: 38.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 88, nombre: "PÁJARO LOCO", ref: "443", precio: 38.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 89, nombre: "RANA RENÉ", ref: "177", precio: 36.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 90, nombre: "RELOJ DIGITAL", ref: "119", precio: 15.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 91, nombre: "REMATE AJOLOTES", ref: "384", precio: 16.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 92, nombre: "REMATE ARDILLA", ref: "374", precio: 20.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 93, nombre: "REMATE CONEJO", ref: "344", precio: 22.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 94, nombre: "REMATE PATO", ref: "375", precio: 20.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 95, nombre: "SHREK JR", ref: "395", precio: 38.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 96, nombre: "SHREK MEDIANO", ref: "434", precio: 28.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 97, nombre: "SONIC", ref: "342", precio: 33.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 98, nombre: "SQUISHY DOMPLIN", ref: "348", precio: 20.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 99, nombre: "SQUISHY KITTY", ref: "380", precio: 20.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 100, nombre: "SQUISHY SURTIDO CON LUZ", ref: "347", precio: 20.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 101, nombre: "Sr y Sra cara de papa", ref: "351", precio: 33.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 102, nombre: "STAR WARS", ref: "439", precio: 38.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 103, nombre: "STICH", ref: "27", precio: 30.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 104, nombre: "STICH DONA", ref: "242", precio: 35.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 105, nombre: "STICH NUEVO", ref: "352", precio: 22.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 106, nombre: "STICH REMATE", ref: "340", precio: 20.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 107, nombre: "STICH REMATE (2)", ref: "345", precio: 20.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 108, nombre: "STRANGER THINGS", ref: "304", precio: 18.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 109, nombre: "SUPER MAN PREMIUM", ref: "429", precio: 38.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 110, nombre: "SURTIDO COCODRILOS", ref: "39", precio: 15.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 111, nombre: "TANK MAN FIGTHER", ref: "334", precio: 6200.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" },
+            { id: 112, nombre: "TAZA", ref: "258", precio: 25.00, imagen: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=600" },
+            { id: 113, nombre: "TIBURONES", ref: "21", precio: 19.00, imagen: "https://images.unsplash.com/photo-1556015048-4d3aa1f143d2?auto=format&fit=crop&q=80&w=600" },
+            { id: 114, nombre: "TOMMY Y JERRY", ref: "318", precio: 36.00, imagen: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=600" },
+            { id: 115, nombre: "TORTUGAS NINJA", ref: "144", precio: 33.00, imagen: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600" },
+            { id: 116, nombre: "UNICORNIOS", ref: "83", precio: 15.00, imagen: "https://images.unsplash.com/photo-1534723485550-1502c210101c?auto=format&fit=crop&q=80&w=600" },
+            { id: 117, nombre: "ZOMBIES", ref: "205", precio: 35.00, imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&q=80&w=600" },
+            { id: 118, nombre: "ZORRITOS", ref: "72", precio: 25.00, imagen: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" },
+            { id: 119, nombre: "ZOTOPIA DISFRAZADO DE STICH", ref: "243", precio: 35.00, imagen: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=600" }
+        ];
+
+        let carrito = [];
+        let vistaActual = 'todos';
+        let terminoBusqueda = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarProductos(productos);
+            
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                terminoBusqueda = e.target.value.toLowerCase();
+                filtrarYRenderizar();
+            });
+            document.getElementById('searchMobileInput').addEventListener('input', (e) => {
+                terminoBusqueda = e.target.value.toLowerCase();
+                filtrarYRenderizar();
+            });
+        });
+
+        function renderizarProductos(lista) {
+            const grid = document.getElementById('productGrid');
+            const noResults = document.getElementById('noResults');
+            grid.innerHTML = '';
+
+            if (lista.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            lista.forEach(p => {
+                let precioFinal = vistaActual === 'mayoreo' ? Math.max(5, Math.round(p.precio * 0.85 * 10) / 10) : p.precio;
+                let etiquetaMayoreo = vistaActual === 'mayoreo' ? `<span class="bg-red-100 text-red-700 text-[10px] font-extrabold px-2 py-0.5 rounded-full ml-2">Mayoreo 📦</span>` : '';
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl p-4 border border-red-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden rounded-2xl bg-red-50 mb-4 aspect-square">
+                        <img src="${p.imagen}" alt="${p.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-red-600 text-[11px] font-bold px-3 py-1 rounded-full shadow-xs">
+                            ref: ${p.ref}
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-neutral-800 text-base mb-1 group-hover:text-red-600 transition-colors">${p.nombre}</h3>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-red-50">
+                        <div>
+                            <span class="text-red-600 font-extrabold text-lg">$${precioFinal.toFixed(2)} <span class="text-xs text-neutral-400 font-normal">MXN</span></span>
+                            ${etiquetaMayoreo}
+                        </div>
+                        <button onclick="agregarAlCarrito(${p.id})" class="bg-red-100 hover:bg-red-600 hover:text-white text-red-600 font-semibold px-4 py-2.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 text-sm">
+                            <i class="fa-solid fa-plus text-xs"></i> Agregar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarVista(vista) {
+            vistaActual = vista;
+            
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn bg-white hover:bg-red-50 text-neutral-600 border border-red-200 px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer";
+            });
+            event.target.className = "cat-btn bg-red-600 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all cursor-pointer shadow-sm";
+
+            filtrarYRenderizar();
+        }
+
+        function filtrarYRenderizar() {
+            let resultado = productos;
+
+            if (terminoBusqueda.trim() !== '') {
+                resultado = resultado.filter(p => p.nombre.toLowerCase().includes(terminoBusqueda) || p.ref.toLowerCase().includes(terminoBusqueda));
+            }
+
+            renderizarProductos(resultado);
+        }
+
+        function agregarAlCarrito(id) {
+            const producto = productos.find(p => p.id === id);
+            let precioReal = vistaActual === 'mayoreo' ? Math.max(5, Math.round(producto.precio * 0.85 * 10) / 10) : producto.precio;
+            const index = carrito.findIndex(item => item.id === id && item.precio === precioReal);
+
+            if (index > -1) {
+                carrito[index].cantidad += 1;
+            } else {
+                carrito.push({ ...producto, precio: precioReal, cantidad: 1 });
+            }
+
+            actualizarCarritoUI();
+            toggleCartDrawer();
+        }
+
+        function agregarDestacadoRapido() {
+            agregarAlCarrito(91);
+        }
+
+        function cambiarCantidad(id, cambio, precioItem) {
+            const index = carrito.findIndex(item => item.id === id && item.precio === precioItem);
+            if (index > -1) {
+                carrito[index].cantidad += cambio;
+                if (carrito[index].cantidad <= 0) {
+                    carrito.splice(index, 1);
+                }
+            }
+            actualizarCarritoUI();
+        }
+
+        function actualizarCarritoUI() {
+            const badge = document.getElementById('cartBadge');
+            const container = document.getElementById('cartItemsContainer');
+            const subtotalEl = document.getElementById('cartSubtotal');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            if (carrito.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16">
+                        <div class="text-5xl mb-3">🛒</div>
+                        <p class="text-neutral-500 font-semibold">Tu carrito está vacío</p>
+                        <p class="text-neutral-400 text-xs mt-1">¡Agrega un peluche o llavero para comenzar!</p>
+                    </div>
+                `;
+                subtotalEl.innerText = "$0.00 MXN";
+                totalEl.innerText = "$0.00 MXN";
+                return;
+            }
+
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            carrito.forEach(item => {
+                subtotal += item.precio * item.cantidad;
+                const div = document.createElement('div');
+                div.className = "py-4 flex items-center gap-4";
+                div.innerHTML = `
+                    <img src="${item.imagen}" alt="${item.nombre}" class="w-16 h-16 object-cover rounded-xl bg-red-50 border border-red-100">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-neutral-800 text-sm">${item.nombre}</h4>
+                        <p class="text-red-600 font-bold text-xs mt-0.5">$${item.precio.toFixed(2)} MXN</p>
+                        <div class="flex items-center gap-3 mt-2">
+                            <button onclick="cambiarCantidad(${item.id}, -1, ${item.precio})" class="w-6 h-6 rounded-full bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center font-bold text-xs transition-colors">-</button>
+                            <span class="text-sm font-semibold">${item.cantidad}</span>
+                            <button onclick="cambiarCantidad(${item.id}, 1, ${item.precio})" class="w-6 h-6 rounded-full bg-red-100 hover:bg-red-200 text-red-600 flex items-center justify-center font-bold text-xs transition-colors">+</button>
+                        </div>
+                    </div>
+                    <button onclick="cambiarCantidad(${item.id}, -${item.cantidad}, ${item.precio})" class="text-neutral-300 hover:text-red-400 p-2 transition-colors">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+            
+            subtotalEl.innerText = `$${subtotal.toFixed(2)} MXN`;
+            totalEl.innerText = `$${subtotal.toFixed(2)} MXN`;
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartBackdrop');
+            const panel = document.getElementById('cartPanel');
+
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    panel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                backdrop.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function abrirCheckout() {
+            if (carrito.length === 0) return;
+            toggleCartDrawer();
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.remove('hidden');
+        }
+
+        function cerrarCheckout() {
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.add('hidden');
+        }
+
+        function finalizarCompra(e) {
+            e.preventDefault();
+            alert('💖 ¡Pedido de mayoreo registrado con éxito en Peluchilandia! Nos pondremos en contacto contigo a través del WhatsApp 5610457708.');
+            carrito = [];
+            actualizarCarritoUI();
+            cerrarCheckout();
+        }
+
+        function toggleWishlistModal() {
+            alert('✨ ¡Próximamente podrás guardar tus artículos favoritos!');
+        }
+    </script>
+</body>
+</html>
